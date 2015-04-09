@@ -1,37 +1,37 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <!-- <meta charset="GBK"> -->
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta charset="UTF-8">
+    <!--<meta http-equiv="Content-Type" content="text/html; charset=gb2312">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="Keywords" content="blog"/>
     <meta name="Description" content="blog"/>
-    <title>Ouyida3's Blog MySQL��������</title>
+    <title>Ouyida3's Blog MySQL技术方案</title>
     <link rel="shortcut icon" href="/static/favicon.png"/>
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-<h1>MySQL��������</h1>
+<h1>MySQL技术方案</h1>
 <br>
-<h2>�Ż�ʱ��</h2>
+<h2>优化时机</h2>
 <br>
-һ�㵥������500�����ң������Ըо��������½�ʱ����Ҫ�Ż�
+一般单表超过500万左右，或明显感觉到性能下降时，需要优化
 <br>
-<h2>�Ż�����</h2>
+<h2>优化方案</h2>
 <br>
-1 ��д����<br>
-2 ʹ�û��棬��memcached��Redis<br>
-3 ʹ���������棬��ElasticSearch��solr<br>
-4 �ֿ�ֱ�
+1 读写分离<br>
+2 使用缓存，如memcached或Redis<br>
+3 使用搜索引擎，如ElasticSearch或solr<br>
+4 分库分表
 <br>
-<h2>��ϸ˵��</h2>
-<br>1��д���������ʵ�֣�������һ��ʼ�������صȵ������½�ʱ
-<br>2���������½�ʱ������������һ��500�����������ܻ���ȫ����ֻ�ܻ����ȵ����ݣ�������Ҫ��һ������ȵ����ݵĹ���
-<br>3�񻺴�������������������ܴ�������������棬�����������ļ��洢���ʺϸ�Ч���ң������Բ����޸ġ������֧�֡�ʹ����������Ļ���Ҫ��ʱ��mysql������ͬ��������ͬ����������ҪԤ��2�����̣���Ȼ����������ܿ���ѹ��
-<br>4�ֿ�ֱ���ʵ�����ڵڶ���������ʵ�ֽϸ��ӣ��ֱ����Ȼ�漰Ҫ��ȡ����������⣬���Կ�����͸���ģ���Ӧ�ÿ��������ݿ��м���Ҫ�з�һ��ƽ̨���Զ�hash�������ֱ���ı����ٸ����ӣ�������һ��600��ı������Է�Ϊ���ű�����ʱ��֣�ʱ���A��ǰ�ķ�һ�ţ�500����һ�ű�100�򣬺����Ķ����뵽�ñ�
-��״�����ݿ�������5.5�汾����ѵģ����������ʹ���������2��3����ʱû����ʲô���⡣����Ҫdba��һ�������з����Ը㶨��
+<h2>详细说明</h2>
+<br>1读写分离很容易实现，建议在一开始做，不必等到性能下降时
+<br>2发现性能下降时可做。比如有一张500万大表，不可能缓存全表，只能缓存热点数据，所以需要有一个监控热点数据的功能
+<br>3像缓存整个大表或者数据量很大可以用搜索引擎，搜索引擎是文件存储，适合高效查找，但不对插入修改、事务等支持。使用搜索引擎的话需要定时把mysql的数据同步给它，同样的数据需要预留2倍磁盘，虽然搜索引擎可能可以压缩
+<br>4分库分表其实可以在第二步做，但实现较复杂；分表后必然涉及要读取多个表的问题，但对开发是透明的，在应用开发与数据库中间需要研发一个平台，自动hash索引到分表后的表。举个例子，假设有一张600万的表，可以分为两张表，按时间分，时间点A以前的分一张，500万；另一张表100万，后续的都插入到该表
+现状：数据库现在用5.5版本，免费的，不购买服务，使用了上面的2和3，暂时没遇到什么难题。不需要dba，一般难题研发可以搞定。
 <br>
-���Ϸ�����Ե���������1000���������ı�������1000��δ��ʵ��������л�Ϲ��ṩ����֧�֣�
+以上方案针对的是最大表是1000万数据量的表。超过1000万未经实践。（感谢老郭提供技术支持）
 <br>
 <br>
 http://ouyida3.github.io
