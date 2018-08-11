@@ -2,6 +2,9 @@
 ouyida3 blog
 
 # step
+
+## download
+
 ```
 DannideMacBook-Pro:git danni$ git --version
 git version 2.14.3 (Apple Git-98)
@@ -21,6 +24,9 @@ Resolving deltas: 100% (43/43), done.
 DannideMacBook-Pro:git danni$ 
 ```
 
+## commit
+
+```
 DannideMacBook-Pro:git danni$ cd ouyida3.github.io/
 DannideMacBook-Pro:ouyida3.github.io danni$ git add index.html
 DannideMacBook-Pro:ouyida3.github.io danni$ git commit -m 'update index'
@@ -50,3 +56,9 @@ Total 3 (delta 2), reused 0 (delta 0)
 remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
 To https://github.com/ouyida3/ouyida3.github.io
    c6c86cd..6244aa5  master -> master
+```
+
+## update
+```
+git pull
+```
