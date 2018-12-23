@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据绑定-第一个Vue应用</title>
+</head>
+<body>
+<!-- IntelliJ 修改问件后显示星号：file-settings-editor-general-editor tabs-->
+<h2>数据绑定-第一个Vue应用</h2>
+<h2>代码：</h2>
+<!-- 怎么在html里显示html代码：
+https://zhidao.baidu.com/question/141156969.html-->
+<xmp>
+    <!-- 都放在body里即可 -->
+    <div id="app">
+        <input type="text" v-model="name" placeholder="Your name">
+        <h1>Hello, {{name}}</h1>
+    </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                name: ''
+            }
+        }
+        )
+    </script>
+</xmp>
+<h2>运行结果：</h2>
+<div id="app">
+    <input type="text" v-model="name" placeholder="Your name">
+    <h1>Hello, {{name}}</h1>
+</div>
+<!--<script src="https://unpkg.com/vue/dist/vue.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: ''
+        }
+    }
+    )
+</script>
+</body>
+</html>
