@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实战-知乎日报</title>
+    <!--css写在head里，写在body里idea不自动显示style标签-->
+    <style>
+        .daily-menu{
+            width: 150px;
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            overflow: auto;
+            background: #f5f7f9;
+        }
+    </style>
+    <!--必须有rel，type可以没有-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div class="daily">
+    <div class="daily-menu">
+        <div class="daily-menu-item">每日推荐</div>
+        <div class="daily-menu-item">主题日报</div>
+    </div>
+</div>
+<!--<script src="https://unpkg.com/vue/dist/vue.min.js"></script>-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            name: ''
+        }
+    })
+</script>
+</body>
+</html>

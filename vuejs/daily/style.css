@@ -1,0 +1,19 @@
+.daily-menu-item{
+    font-size: 18px;
+    text-align: center;
+    margin: 5px 0;
+    padding: 10px 0;
+    cursor: pointer;
+    border-right: 2px solid transparent;
+    transition: all .3s ease-in-out;
+    <!--background: #f5f7d8;--><!--调试-->
+}
+.daily-menu-item:hover{
+    background: #e3e8ee;<!--鼠标放上变颜色-->
+}
+<!--注释放在最后才没问题，放在前面就css失效了，为什么？-->
+<!--字体大小-->
+<!--字居中-->
+<!--div之间，上下留个5px的间距-->
+<!--字与上下有个间距，10px-->
+<!--鼠标放上变成手掌，否则是I-->
