@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue.js实战-购物车</title>
+    <!--必须有rel，type可以没有-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- 为了代码显示的样式 -->
+    <link rel="stylesheet" type="text/css" href="tiny.css">
+</head>
+
+<body>
+    <h1>购物车示例</h1>
+    <!-- vue指令：cloak，vue实例编译结束时，该指令会从html元素中移除，也就是只在编译完成前生效 -->
+    <div id="app" v-cloak>
+        <!-- vue指令：v-if，放在标签中，如果为真则该标签会显示 -->
+        <template v-if="list.length">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>商品名称</th>
+                        <th>商品单价</th>
+                        <th>商品数量</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- vue的指令：v-for -->
+                    <tr v-for="(item, index) in list">
+                        <td>{{ index + 1 }}</td><!-- vue都是用{{}}来使用变量 -->
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>
+                            <!-- vue指令：v-on，绑定事件 -->
+                            <button v-on:click="handleReduce(index)">-</button>
+                            {{ item.count }}
+                            <!-- v-on的语法糖：@，一般都是用@，不写v-on -->
+                            <button @click="handleAdd(index)">+</button>
+                        </td>
+                        <td><button @click='handleRemove'>移除</button></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>总价：￥ {{ totalPrice }}</div>
+        </template>
+        <!-- v-if放在template标签，而v-else可以放在div，也就说不需要有标签的对应关系。
+        但是需要有层次的对应关系，如果放在div外，则不生效。 -->
+        <div v-else>您的购物车为空</div>
+    </div>
+
+    <h1>源代码</h1>
+    <!-- <textarea> 标签定义多行的文本输入控件。不是什么新标签， -->
+    <!-- 但是html5增加了一些属性 -->
+    <!-- 详细见：http://www.runoob.com/tags/tag-textarea.html -->
+    <h3>html</h3>
+    <textarea class="code" rows=37>
+        <div id="app" v-cloak>
+            <!-- vue指令：v-if，放在标签中，如果为真则该标签会显示 -->
+            <template v-if="list.length">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>商品名称</th>
+                            <th>商品单价</th>
+                            <th>商品数量</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- vue的指令：v-for -->
+                        <tr v-for="(item, index) in list">
+                            <td>{{ index + 1 }}</td><!-- vue都是用{{}}来使用变量 -->
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.price }}</td>
+                            <td>
+                                <!-- vue指令：v-on，绑定事件 -->
+                                <button v-on:click="handleReduce(index)">-</button>
+                                {{ item.count }}
+                                <!-- v-on的语法糖：@，一般都是用@，不写v-on -->
+                                <button @click="handleAdd(index)">+</button>
+                            </td>
+                            <td><button @click='handleRemove'>移除</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div>总价：￥ {{ totalPrice }}</div>
+            </t emplate>
+            <!-- v-if放在template标签，而v-else可以放在div，也就说不需要有标签的对应关系。
+            但是需要有层次的对应关系，如果放在div外，则不生效。 -->
+            <div v-else>您的购物车为空</div>
+        </div>
+    </textarea>
+
+    <h3>js</h3>
+    <textarea class="code" rows="30">
+        var app = new Vue({
+            el: '#app',
+            data: {
+                // list是一个数组
+                list: [
+                    // id等不需要引号
+                    { id: 1, name: 'iphone XS', price: 6599, count: 1 },
+                    { id: 2, name: 'iphone XR', price: 4399, count: 1 },
+                    { id: 3, name: 'iphone XS Max', price: 7499, count: 1 }
+                ]
+            },
+            computed: {
+                totalPrice: function () {
+                    return this.list[0].price * this.list[0].count;
+                }
+            },
+            methods: {
+                // 方法定义用：号，不能用=号
+                handleAdd: function (index) {
+                    this.list[index].count++;
+                },// 方法之间必须有逗号分隔
+                handleReduce: function (index) {
+                    if (this.list[index].count > 0)
+                        this.list[index].count--;
+                },
+                handleRemove: function (index) {
+                    // js的spilce函数：(start: number, deleteCount?: number)，vscode会提示详细解释。
+                    this.list.splice(index, 1);
+                }
+            }
+        })
+    </textarea>
+
+    <h3>css</h3>
+    <textarea class="code" rows="18">
+        table{
+            border: 1px solid #e9e9e9;/*表格框宽度、显示、颜色*/
+            border-collapse: collapse;
+            border-spacing: 0;
+            empty-cells: show;
+        }
+        th, td{/*表格头和表格体的样式*/
+            padding: 8px 16px;
+            border: 1px solid #e9e9e9;/*深灰色*/
+            text-align: left;
+            background: white;/*白色*/
+        }
+        th{/*表格头的样式*/
+            background: #f7f7f7;/*表格头的底色：浅灰色*/
+            color: #5c6b77;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+    </textarea>
+
+    <!-- js必须放在body底部，否则如果放在head里则vue实例无法创建，因为此时dom还没有构建完成。 -->
+    <!--<script src="https://unpkg.com/vue/dist/vue.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
